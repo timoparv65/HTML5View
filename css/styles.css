@@ -1,0 +1,22 @@
+/* use element selector to select all p elements for this style */
+p{
+    color:greenyellow;
+    font-size: 32px
+}
+
+/* use class selector to define style for elements */
+.mun_keksima{
+    background-color: aquamarine;
+}
+
+.fancy{
+    color: red;
+    border: 2px;
+    background-color: aquamarine;
+    border-radius: 8px;
+}
+
+/* use id selector to define styles */
+#joku_tyyli{
+    margin: 100px; // joka suuntaan marginaalia 100px
+}
