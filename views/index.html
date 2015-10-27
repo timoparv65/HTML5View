@@ -1,7 +1,7 @@
 <!doctype html> <!-- tarvitaan selainta varten. HTML 5 määrityksen mukainen -->
 <html lang="fi"> <!-- html aloituselementti. lang attribuutti -->
     <head> <!-- sisältää metatietoa: kieli, tyylitiedostot, tietoa hakikoneelle. Ei näy käyttäjälle -->
-        <meta charset="utf-8"> <!-- ladataan tyylitiedosto -->
+        <meta charset="utf-8"> <!-- ladataan tyylitiedosto. Meta elementti ei tarvitse päättävää elementtiä, koska sillä ei ole sisältöä -->
         <title>Hello World!</title> <!-- standardin mukaan pakollinen. Esim. firman nimi -->
         <!-- Alla oleva tehty erilliseen tyylitiedostoon *.css
         <style>
@@ -20,16 +20,40 @@
         <p>Hello earth habitants!</p> <!-- paragraph elementti -->
         <p>Terve taas</p>
         <div class="mun_keksima">terve</div>
-        <div class="fancy">taas</div>
+        <div class="fancy mun_keksima">taas</div>
         
-        <p class="fancy">Class tyyliä pukkaa</p>
+        <p class="fancy">Class tyyliä pukkaa</p> <!-- class määrittelee tyylin -->
         
         <p id="joku_tyyli">Tadaa Id tyyliä pukkaa</p>
         
+        <a href="http://www.kaleva.fi">News</a> <!-- a on inline elementti  -->
+        <a href="http://www.iltasanomat.fi">News2</a>
+        <div> <!-- div ja p ovat block elementti -->
+                <p>Hello</p>
+        </div>
+        <p id="para1">Hello</p>
         
         <input type="datetime"/> <!-- minkä tyyppisenä input pitää renderäidä. Daytime ei toimi tällä hetkellä -->
         <input type="color" class="nice"/>
         <input type="text" placeholder="Enter your name"/>
+        
+        
+        <div> <!-- div toimii wrapperinä. Yleensä yksi sivu määritetään wrapperin sisälle -->
+            <nav id="head"> <!-- navigation elementti -->
+                <a href="http://www.kaleva.fi">News</a>
+                <a href="http://www.iltasanomat.fi">News2</a>
+            </nav>
+            <section>
+                <h1 class="about">About</h1>
+                <p class="about">Here is some content</p>
+            </section>
+            <footer data-dummy="">
+                <p>Copyright by Team Ohjelmistokehitys</p>
+            </footer>
+        </div>
+        
+        
+        <script src="/lib/jquery-2.1.4.min.js"></script> <!-- ladataan jquery-kirjasto omalta koneelta -->
         <script src="/controllers/scripts.js"></script> <!-- ladataan logiikka bodyn lopussa -->
     </body>
 </html> <!-- html lopetuselementti -->
