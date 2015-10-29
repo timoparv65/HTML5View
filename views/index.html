@@ -3,43 +3,12 @@
     <head> <!-- sisältää metatietoa: kieli, tyylitiedostot, tietoa hakikoneelle. Ei näy käyttäjälle -->
         <meta charset="utf-8"> <!-- ladataan tyylitiedosto. Meta elementti ei tarvitse päättävää elementtiä, koska sillä ei ole sisältöä -->
         <title>Hello World!</title> <!-- standardin mukaan pakollinen. Esim. firman nimi -->
-        <!-- Alla oleva tehty erilliseen tyylitiedostoon *.css
-        <style>
-            p{
-                color:green;
-                font-size: 32px;
-            }
-            div{
-                background-color: bisque;
-            }
-        </style>
-        -->
         <link href="/css/styles.css" type="text/css" rel="stylesheet"/>
         <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
         <link href="/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet"/>
     </head>
     <body> <!-- kaikki mitä näkyy käyttäjälle. Tänne rakennetaan käyttäliittymä -->
-        <p>Hello earth habitants!</p> <!-- paragraph elementti -->
-        <p>Terve taas</p>
-        <div class="mun_keksima">terve</div>
-        <div class="fancy mun_keksima">taas</div>
-        
-        <p class="fancy">Class tyyliä pukkaa</p> <!-- class määrittelee tyylin -->
-        
-        <p id="joku_tyyli">Tadaa Id tyyliä pukkaa</p>
-        
-        <a href="http://www.kaleva.fi">News</a> <!-- a on inline elementti  -->
-        <a href="http://www.iltasanomat.fi">News2</a>
-        <div> <!-- div ja p ovat block elementti -->
-                <p>Hello</p>
-        </div>
-        <p id="para1">Hello</p>
-        
-        <input type="datetime"/> <!-- minkä tyyppisenä input pitää renderäidä. Daytime ei toimi tällä hetkellä -->
-        <input type="color" class="nice"/>
-        <input type="text" placeholder="Enter your name"/>
-        
-        
+ 
         <div> <!-- div toimii wrapperinä. Yleensä yksi sivu määritetään wrapperin sisälle -->
             <nav id="head"> <!-- navigation elementti -->
                 <a href="http://www.kaleva.fi">News</a>
