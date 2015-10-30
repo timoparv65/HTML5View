@@ -7,7 +7,7 @@ console.log("Here we go!!"); // menee selaiseen logiin. Crome=>lisää tyäkaluj
 // $ => jquery elementti
 // document on jqueryn konstruktori. $ ottaa CSS-objektin/selektorin. Kun $(document) on valmis, palauttaa se jquery-objektin,
 // joka trikkaa ready-funktion, joka aiheuttaa callback-funktion suorittamisen
-$(document).ready(function(){
+$(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> elementtiin index.html:ssä
     
     console.log("jquery onload triggered");
 
@@ -19,21 +19,50 @@ $(document).ready(function(){
     $("[data-dummy]").html("<p>Hello World</p>"); // hae elementti data-dummy
     
     var settings = { // luodaan objekti ajax:ia varten
-        method:"GET", // löytyy jquery API => AJAX
-        url:"http://localhost:28017/oma/person/",
+        method:"GET", // löytyy jquery API => AJAX. Tämä attribuutti on oletusarvoisesti GET
+        url:"http://localhost:28017/oma/person/", // oletusarvoisesti kaivaa selaimessa olevan osooitteen
         dataType:"jsonp",
         jsonp:"jsonp" // voidaan rikkoa cross domain policya
     };
     
+    // kts. jQuery.ajax()
     $.ajax(settings).done(function(data){// lähettään pyynnön url osoitteeseen. Jää odottamaan responsea, joka otetaan kiinni done-funktiolla
         console.log(data);
+        console.log(Object.keys(data.rows[0])); // tulostetaan artibuuttien nimet (kutsutaan myös avaimiksi/keys) json objektista
         
+        // luodaan otsikot dynaamisesti
+        if (data.rows.length > 0) { // tarkista onko tietokannassa dataa
+            var headers = Object.keys(data.rows[0]);
+            
+            var row = $("<tr></tr>")
+            for(var i = 1; i < headers.length; i++){
+                // luo otsikko ja lisää se riviin
+                $("<th>" + headers[i] + "</th>").appendTo(row) // appendTo lisää childiksi
+            }
+            $(row).appendTo("thead") // lisää rivi thead osioon
+        }
+        
+        
+        
+        // luo taulukon sisältö dynaamisesti
         for(var i = 0; i < data.rows.length; i++){ // käydään taulukko läpi. rows => kts. selaimen debuggerista
+            
             var html = "<tr>" + // luodaan table row
                         "<td>" + data.rows[i].name + "</td>" + // luodaan table data
                         "<td>" + data.rows[i].address + "</td>" +
                         "<td>" + data.rows[i].age + "</td>" +
+                        "<td>" + data.rows[i].email + "</td>" +
                         "</tr>";
+            
+            /*
+            // tehdään yllä oleva dynaamisesti...ei toimi
+            var html = "<tr>"
+            for (var k = 0; k < headers.length; k++) {
+                html += "<td>" + data.rows[i][headers[k]] + "</td>";
+            }
+            html += "</tr>"
+            */
+            
             
             $(html).appendTo("tbody") // lisätään html-dokumentin <tdody> elementtiin
         }
