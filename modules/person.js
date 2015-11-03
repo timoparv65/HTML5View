@@ -20,5 +20,5 @@ router.delete('/',function(req,res){
     
 });
 
-module.export = router; // käytetään middlewarena
+module.exports = router; // käytetään middlewarena
 

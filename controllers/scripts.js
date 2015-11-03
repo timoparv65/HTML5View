@@ -21,7 +21,7 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
     var settings = { // luodaan objekti ajax:ia varten
         method:"GET", // löytyy jquery API => AJAX. Tämä attribuutti on oletusarvoisesti GET
         url:"http://localhost:3000/persons", // miksi ???
-        dataType:"jsonp",
+        dataType:"json",
     };
     
     // kts. jQuery.ajax()
@@ -47,10 +47,10 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
         for(var i = 0; i < data.length; i++){ // käydään taulukko läpi. rows => kts. selaimen debuggerista
             
             var html = "<tr>" + // luodaan table row
-                        "<td>" + data.name + "</td>" + // luodaan table data
-                        "<td>" + data.address + "</td>" +
-                        "<td>" + data.age + "</td>" +
-                        "<td>" + data.email + "</td>" +
+                        "<td>" + data[i].name + "</td>" + // luodaan table data
+                        "<td>" + data[i].address + "</td>" +
+                        "<td>" + data[i].age + "</td>" +
+                        "<td>" + data[i].email + "</td>" +
                         "</tr>";
             
             $(html).appendTo("tbody") // lisätään html-dokumentin <tdody> elementtiin
