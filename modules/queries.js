@@ -1,3 +1,5 @@
+// Backend tiedosto
+
 // tehdään tänne kaikki tietokantaoperaatioihin liittyvät asiat
 
 var db = require('./database') // lataa database moduulin => database.js
@@ -14,5 +16,14 @@ exports.getAllPersons = function(req,res){
         } else{
             res.send(data);
         }
+    });
+}
+
+// This function saves new person information to person collection
+exports.saveNewPerson = function(req,res){
+    var personTemp = new db.Person(req.body); // luo uuden person objektin. Bodyssa tallessa json-objekti
+    // save it to the database
+    personTemp.save(function(err,ok){ // save tekee tiedon validoinnin, jos kaikki oikein kutsuu callback-funktiota function(err,ok)
+       res.send("Database action done");
     });
 }

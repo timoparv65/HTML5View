@@ -1,5 +1,10 @@
+// Client tiedosto
+
 "use strict"; // jslint antaa varoituksen kaikista koodin osista, jotka ei hyvin
 console.log("Here we go!!"); // menee selaiseen logiin. Crome=>lisää tyäkaluja/kehittäjän työkalut. Tulee consoleen debuggerissa
+
+// this variable is shown to every function
+//var g_person_data;
 
 
 // onload-tapahtuma tehdään jquery-kirjastolla
@@ -20,7 +25,7 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
     
     var settings = { // luodaan objekti ajax:ia varten
         method:"GET", // löytyy jquery API => AJAX. Tämä attribuutti on oletusarvoisesti GET
-        url:"http://localhost:3000/persons", // miksi ???
+        url:"http://localhost:3000/persons", // backend on portissa 3000, konteksti persons
         dataType:"json",
     };
     
@@ -31,7 +36,7 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
         
         // luodaan otsikot dynaamisesti
         if (data.length > 0) { // tarkista onko tietokannassa dataa. Miksi rows lähti pois ? ennen data.rows.length
-            var headers = Object.keys(data);
+            var headers = Object.keys(data[0]);
             
             var row = $("<tr></tr>")
             for(var i = 1; i < headers.length; i++){
@@ -50,12 +55,43 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
                         "<td>" + data[i].name + "</td>" + // luodaan table data
                         "<td>" + data[i].address + "</td>" +
                         "<td>" + data[i].age + "</td>" +
-                        "<td>" + data[i].email + "</td>" +
+                        "<td><input type='button' id=" + data[i]._id + " value='Modify'/></td>" + // Modify-napin luonti. Buttonille atribuutti id
                         "</tr>";
             
             $(html).appendTo("tbody") // lisätään html-dokumentin <tdody> elementtiin
         }
         
+        // lisätty tähän, koska alla oleva toteutus ei toimi
+        $("[type=button]").click(function(click_data){
+            
+            for(var i=0; i < data.length; i++) {
+                // check if id from button matches one of person id
+                if(click_data.currentTarget.id == data[i]._id) {
+                    buildModifyUI(data[i]);
+                    break;
+                }
+            }
+            
+            console.log(click_data);
+        });
+        
     });
     
+    /*
+    // Get all elements from DOM where element has attribute 'type' with value 'button'. Then add event handler
+    // for click event for each of them
+    // kts jquery.com => API => events => mouse event => click()
+    // ei toimi, koska yllä oleva koodi on asynkrooninen ja done()-funktioon ei ole tullut vastausta enne kuin alla oleva koodi ajetaan
+    $("[type=button]").click(function(data){
+        console.log(data);
+    });
+    */
+    
 });
+
+
+function buildModifyUI(person_data){
+    
+    var html = "<input type='text' value='" + person_data.name + "'/>";
+    $("body").html(html);
+}

@@ -1,8 +1,18 @@
 <!doctype html>
+<!-- toteuta käyttäliittymä ,millä voi lähettää tietoa tietokantaan. Mieti käyttöliittymä
+     3 kenttää, lähetyspainile. Lähetetään POSt-metodia käyttäen serverille -->
 <html>
     <head>
     </head>
     <body>
         <h1>Add new contact info</h1>
+        <form method="post" enctype="application/json" action="/persons"> <!-- käytetään kun lähetetään tietoa selaimesta serverille, json tyyppinä. action kertoo mihin kontekstiin serverillä => person. Kts bootstrap.com -->
+            
+            <!-- nimetty json-objektin muuttujat saman nimiseksi kuin mitä on tietokannassa. Voi tällöin tallentaa suoraan tietokantaan. Tiedon oikeellisuuden tarkistus täytyy tehdä itse -->
+            <input type="text" required placeholder="Your full name" name="name"/> <!-- tallentaa nimen name-nimiseen muuttujaan -->
+            <input type="text" required placeholder="Your full address" name="address"/>
+            <input type="number" required placeholder="Your age" name="age"/>
+            <input type="submit" value="Send"/>
+        </form>
     </body>
 </html>

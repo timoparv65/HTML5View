@@ -1,18 +1,24 @@
 var express = require("express"); // luodaan serveri, require lataa
 var path = require("path"); // lataa path-moduulin, joka auttaa hakemistopolkujen käsittelyssä. kts nodejs:n AP
-var database = require('./modules/database'); // ladataan oma dokuuli
-var queries = require('./modules/queries'); // ladataan oma dokuuli
-var person = require('./modules/person'); // ladataan oma dokuuli
+var bodyParser = require("body-parser"); // lataa body-parser
+var database = require('./modules/database'); // lataa oma moduuli database
+var queries = require('./modules/queries'); // lataa oma moduuli queries
+var person = require('./modules/person'); // lataa oma moduuli person
 
 var app = express(); //instantioi serveri
 
 //============================ Middlewares=============================
-app.use(function(req,res,next){
-    console.log(req.method);
-    console.log(req.path); // mihin kontekstiin
+
+// Bodyparser json() middleware parses the json object from HTTP POST request
+app.use(bodyParser.urlencoded());
+
+app.use(function(req,res,next){ // oma funktio
+    console.log(req.method); // mikä metodi
+    console.log(req.path); // mkä kontekstiin
     console.log(__dirname); // noden oma muuttuja. sis. lopun siihen hakemistoon mistä node käynnistettiin
-    console.log(database.Person);
-    database.myFunction();
+    console.log(req.body);
+    //console.log(database.Person);
+    //database.myFunction();
     next(); //Send request forward in stack
 })
 

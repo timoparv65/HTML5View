@@ -14,7 +14,7 @@ function connectionStatus(err,ok){
 
 
 var Person = mongoose.model('Person',{ // collection Person
-    name:String, // tai {typa:String,default:"John Doe"}
+    name:String, // tai {type:String,default:"John Doe"}
     address:String,
     age:{type:Number} // tai {type:Number,min:0,max:120}
 },'person'); // person => tietokannan collection 'person' on jo olemassa. Muuten luo 'person':in.
