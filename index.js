@@ -1,3 +1,5 @@
+// Backend tiedosto
+
 var express = require("express"); // luodaan serveri, require lataa
 var path = require("path"); // lataa path-moduulin, joka auttaa hakemistopolkujen käsittelyssä. kts nodejs:n AP
 var bodyParser = require("body-parser"); // lataa body-parser
@@ -15,7 +17,7 @@ app.use(bodyParser.urlencoded());
 app.use(function(req,res,next){ // oma funktio
     console.log(req.method); // mikä metodi
     console.log(req.path); // mkä kontekstiin
-    console.log(__dirname); // noden oma muuttuja. sis. lopun siihen hakemistoon mistä node käynnistettiin
+    console.log(__dirname); // noden oma muuttuja. sis. lapun siihen hakemistoon mistä node käynnistettiin
     console.log(req.body);
     //console.log(database.Person);
     //database.myFunction();

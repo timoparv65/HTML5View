@@ -92,6 +92,44 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
 
 function buildModifyUI(person_data){
     
-    var html = "<input type='text' value='" + person_data.name + "'/>";
-    $("body").html(html);
+    var html = "<input id ='name' type='text' value='" + person_data.name + "'/>";
+    html += "<p></p>";
+    html += "<input id='address' type='text' value='" + person_data.address + "'/>";
+    html += "<p></p>";
+    html += "<input id='age' type='text' value='" + person_data.age + "'/>";
+    html += "<p></p>";
+    html += "<input type='button' value='Update' id='update'/>";
+    html += "<input type='button' value='Delete' id='delete'/>";
+    
+    $("body").html(html); // ylikirjoittaa html-metodilla body elementissä olevat tiedot
+    
+    // tapahtumankäsittelijä DELETElle
+    $("#delete").click(function(){ // id-selektori vaatii # eteensä
+        // tehdään HTTP-pyyntö front-endiltä back-endiin Ajax:ia käyttäen
+        $.ajax({
+            method:'DELETE',
+            url:'http://localhost:3000/persons/id=' + person_data._id // persons-konteksti. Liitetään URL-osoitteeseen tieto mitä halutaan tuhota. Atribuutti id (voi olla mikä tahansa)
+        }).done(function(data){location.reload(true)}); // location.reload(true) tekee sivulle refreshin
+        
+    });
+    
+    // tapahtumankäsitteljä UPDATE:lle
+    $("#update").click(function(){
+        
+        var temp = {
+            id: person_data._id,
+            name:$("#name").val(),
+            address:$("#address").val(),
+            age:$("#age").val()
+        }
+        
+        // tehdään HTTP-pyyntö front-endiltä back-endiin Ajax:ia käyttäen
+        $.ajax({
+            method:'PUT',
+            url:'http://localhost:3000/persons',
+            dataType:'json',
+            data:temp
+        }).done(function(data){location.reload(true)}); // location.reload(true) tekee sivulle refreshin
+    });
+
 }
