@@ -30,7 +30,7 @@ app.use('/css',express.static(path.join(__dirname, 'css')));
 app.use('/controllers',express.static(path.join(__dirname, 'controllers')));
 app.use('/lib',express.static(path.join(__dirname, 'lib')));
 
-app.use('/persons',person); // jos get-pyyntö, kutsuu person.js:stä get-metodia
+app.use('/persons',person); // konteksti persons (itse keksitty). jos get-pyyntö, kutsuu person.js:stä get-metodia
 
 //============================ Routers ================================
 

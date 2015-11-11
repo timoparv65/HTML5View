@@ -15,6 +15,37 @@ console.log("Here we go!!"); // menee selaiseen logiin. Crome=>lisää tyäkaluj
 $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> elementtiin index.html:ssä
     
     console.log("jquery onload triggered");
+    
+    // 11.11.2015 lisäharj. kts. vihko
+    // tällä reagoi Search-buttonin painallukseen => kohta 1
+    $("#search").click(function(){
+        // kohta 2.
+        var text = $("#search_text").val(); // text on JavaScriptin string-objekti
+        $.ajax({
+            method:"GET",
+            url:"http://localhost:3000/persons/nimi=" + text, // nimi on itse keksitty attribuutti, nimi:n sisältö on text. Toteutus ei tarkista onko text tyhjä
+        //}); // luetaan input-fieldin tieto, kohta 1
+        }).done(function(data){ // kohta 6. Kuuntelee responsea, serveri palauttaa objektin, joka otetaan kiinni done:lla
+            console.log(data);
+            
+            // 11.11.2015 lisäharj. kts. vihko. Kohta 6
+            $("tbody").children().remove(); // poistetaan alla oleva taulukko
+            // luo taulukon sisältö dynaamisesti
+            for(var i = 0; i < data.length; i++){ // käydään taulukko läpi. rows => kts. selaimen debuggerista
+
+                var html = "<tr>" + // luodaan table row
+                            "<td>" + data[i].name + "</td>" + // luodaan table data
+                            "<td>" + data[i].address + "</td>" +
+                            "<td>" + data[i].age + "</td>" +
+                            "<td><input type='button' id=" + data[i]._id + " value='Modify'/></td>" + // Modify-napin luonti. Buttonille atribuutti id
+                            "</tr>";
+
+                $(html).appendTo("tbody") // lisätään html-dokumentin <tdody> elementtiin
+            }
+            
+        });
+    });
+        
 
     $("#head").css("background-color","lightblue").css("padding","20px").css("border-radius","8px");
     
@@ -90,7 +121,7 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
 });
 
 
-function buildModifyUI(person_data){
+function buildModifyUI(person_data){ // korvaa muistissa olevan dokumentin tällä. Ei toimi backward, koska vanha ei ole muistissa
     
     var html = "<input id ='name' type='text' value='" + person_data.name + "'/>";
     html += "<p></p>";
