@@ -12,6 +12,11 @@ function connectionStatus(err,ok){
     }
 }
 
+var User = mongoose.model('User',{
+    username:{type:String,unique:true}, // ei voi tallentaa kahta samannimistä henkilöä
+    password:String,
+    friends:[{type:mongoose.Schema.Types.ObjectId,ref:'Person'}] // tallenentaan tänne Person:in _id. ref => viitataan Person collectioniin
+});
 
 var Person = mongoose.model('Person',{ // collection Person
     name:String, // tai {type:String,default:"John Doe"}

@@ -21,3 +21,12 @@ p{
 #joku_tyyli{
     margin: 100px; // joka suuntaan marginaalia 100px
 }
+
+.login_container{
+    width: 500px;
+    margin: 8px auto;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: darksalmon;
+    padding: 8px; /* sisäpuolelle tilaa */
+}

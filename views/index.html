@@ -1,41 +1,24 @@
-<!-- Client tiedosto -->
-
-<!doctype html> <!-- tarvitaan selainta varten. HTML 5 määrityksen mukainen -->
-<html lang="fi"> <!-- html aloituselementti. lang attribuutti -->
-    <head> <!-- sisältää metatietoa: kieli, tyylitiedostot, tietoa hakikoneelle. Ei näy käyttäjälle -->
-        <meta charset="utf-8"> <!-- ladataan tyylitiedosto. Meta elementti ei tarvitse päättävää elementtiä, koska sillä ei ole sisältöä -->
-        <title>Hello World!</title> <!-- standardin mukaan pakollinen. Esim. firman nimi -->
-        <link href="/css/styles.css" type="text/css" rel="stylesheet"/>
-        <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-        <link href="/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet"/> <!-- sisältää mm. tyylejä, määritetty mm. "table" -->
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login Friends</title>
+        <link href="../css/bootstrap.min.css" type="text/css" rel="stylesheet"> <!-- ladattava ekalla sivulla, muuten ei toimi -->
+        <link href="../css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
+        <link href="../css/styles.css" type="text/css" rel="stylesheet">
     </head>
-    <body> <!-- kaikki mitä näkyy käyttäjälle. Tänne rakennetaan käyttäliittymä -->
- 
-        <div> <!-- div toimii wrapperinä. Yleensä yksi sivu määritetään wrapperin sisälle -->
-            <nav id="head"> <!-- navigation elementti -->
-                <a href="http://www.kaleva.fi">News</a>
-                <a href="http://www.iltasanomat.fi">News2</a>
-                <a href="addPerson.html">Add Person</a> <!-- avaa toisen sivun -->
-            </nav>
-            <section>
-                <h1 class="about">About</h1>
-                <input id="search_text" type="text" placeholder="search by name"/> <!-- lisätty 11.11.2015: kts. vihko kohta 1 -->
-                <input type="button" value="Search" id="search"/> <!-- lisätty 11.11.2015: kts. vihko kohta 1 -->
-                <table class="table">
-                    <thead>
-
-                    </thead>
-                    <tbody> <!-- tänne taulukon sisältö -->
-
-                    </tbody>
-                </table>
-            </section>
-            <footer data-dummy=""> <!-- oma elementti data-dummy -->
-                <p>Copyright by Team Ohjelmistokehitys</p>
-            </footer>
+    <body>
+        <div class="login_container">
+            <h3>Login or Register to Frinds App!</h3>
+            <form> <!-- koska form:issa on kaksi painiketta, ei tapahtumankäsittelijää voi tehdä formista (kts aikaisempaa koodia) -->
+                <input type="text" placeholder="username" class="form-control"><br/>
+                <input type="password" placeholder="password" class="form-control"><br/>
+                <input type="submit" value="Login" class="btn btn-default">
+                <input type="submit" value="Register" class="btn btn-default">
+            </form>
+            <p id="status">Not Logged In</p> <!-- Jos loggautuminen epäonnistuu, se kerrotaan täällä -->
         </div>
-
-        <script src="/lib/jquery-2.1.4.min.js"></script> <!-- ladataan jquery-kirjasto omalta koneelta -->
-        <script src="/controllers/scripts.js"></script> <!-- ladataan logiikka bodyn lopussa -->
+        <script src="../lib/jquery-2.1.4.min.js"></script> <!-- ladataan javascript body:n lopussa -->
+        <script src="../controllers/login_script.js"></script> <!-- ladataan login skripti -->
     </body>
-</html> <!-- html lopetuselementti -->
+</html>
