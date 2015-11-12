@@ -79,3 +79,53 @@ exports.findPersonsByName = function(req,res){
        }
     });
 }
+
+// 12.11.2015. kts vihko
+exports.registerFriend = function(req,res){
+    
+    var friend = new db.Friends(req.body); // bodyssä json objekti
+    friend.save(function(err){ // tallennus esim. epäonnistuu, jos löytyy useampi samanniminen käyttäjä...koska käyttäjänimi oli määritelty unique
+        
+        if(err){
+            res.send({status:err.message});
+        } else {
+            res.send({status:"ok"});
+        }
+    });
+}
+
+// 12.11.2015. kts vihko
+exports.loginFriend = function(req,res){
+    
+    var searchObject = {
+        username:req.body.username,
+        password:req.body.password
+    };
+    
+    db.Friends.find(searchObject, function(err,data){
+        if(err){
+            res.send({status:err.message});
+        } else {
+            // <=0 means wrong username or password
+            if (data.length > 0){
+                res.send({status:"ok"});
+            } else {
+                res.send({status:"Wrong username or password"});
+            }
+        }
+    });
+    
+}
+
+
+exports.getFriendByUsername = function(req,res){
+  
+    var usern = req.params.username.split("=")[1];
+    db.Friends.find({username:usern}).populate('friends').exec(function(err,data){
+        console.log(err);
+        console.log(data);
+        
+        // palauttaa clientille taulukon
+        res.send(data.friends);
+    });
+}

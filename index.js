@@ -6,6 +6,7 @@ var bodyParser = require("body-parser"); // lataa body-parser
 var database = require('./modules/database'); // lataa oma moduuli database
 var queries = require('./modules/queries'); // lataa oma moduuli queries
 var person = require('./modules/person'); // lataa oma moduuli person
+var user = require('./modules/user'); // lataa oma moduuli user
 
 var app = express(); //instantioi serveri
 
@@ -24,13 +25,14 @@ app.use(function(req,res,next){ // oma funktio
     next(); //Send request forward in stack
 })
 
-// Mitä alla olevat tekee ???
+
 app.use('/',express.static(path.join(__dirname, 'views'))); // '/' = konteksti. Jos '/', sitten hakee views-hakemistosta etsii index.html
 app.use('/css',express.static(path.join(__dirname, 'css')));
 app.use('/controllers',express.static(path.join(__dirname, 'controllers')));
 app.use('/lib',express.static(path.join(__dirname, 'lib')));
 
 app.use('/persons',person); // konteksti persons (itse keksitty). jos get-pyyntö, kutsuu person.js:stä get-metodia
+app.use('/friends',user); // konteksti friends (itse keksitty)
 
 //============================ Routers ================================
 

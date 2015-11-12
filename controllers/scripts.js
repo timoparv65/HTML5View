@@ -56,7 +56,7 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
     
     var settings = { // luodaan objekti ajax:ia varten
         method:"GET", // löytyy jquery API => AJAX. Tämä attribuutti on oletusarvoisesti GET
-        url:"http://localhost:3000/persons", // backend on portissa 3000, konteksti persons
+        url:"http://localhost:3000/friends/username=" + localStorage['username'], // backend on portissa 3000, konteksti friends. Luetaan username localStoragesta (kts. login_script.js)
         dataType:"json",
     };
     
