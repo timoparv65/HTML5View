@@ -13,7 +13,7 @@ router.get('/',function(req,res){ // '/' = root conteksti
 
 // 11.11.2015 lisäharj. kts. vihko, kohta 3
 router.get('/:nimi',function(req,res){
-    console.log("Get with name router called");
+    //console.log("Get with name router called");
     db.findPersonsByName(req,res); // 11.11.2015 lisäharj. kts. vihko, kohta 4
 });
 

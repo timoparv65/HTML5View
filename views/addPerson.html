@@ -1,18 +1,40 @@
 <!doctype html>
-<!-- toteuta käyttäliittymä ,millä voi lähettää tietoa tietokantaan. Mieti käyttöliittymä
-     3 kenttää, lähetyspainile. Lähetetään POSt-metodia käyttäen serverille -->
 <html>
     <head>
+        <script src="../lib/jquery-2.1.4.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                
+                $("#sendBtn").click(function(){
+                    
+                    <!-- tehdään lähetettävä json objekti. Myös username -->
+                    var data = {
+                        user:localStorage['username'],
+                        name:$("#name").val(),
+                        address:$("#address").val(),
+                        age:$("#age").val()
+                    }
+                    
+                    <!-- Ajaxilla Back Endille -->
+                    $.ajax({
+                        method:'POST',
+                        url:'http://localhost:3000/persons',
+                        data:data,
+                        //dataType:'json' <!-- otettu pois koska odottaa, että (ehkä) response on json-tyyppiä jolloin ei toimi. Kts queries.js exports.saveNewPerson -->
+                    }).done(function(data){
+                        window.location = "./persons.html";
+                    }); <!-- done lisätty koska redirect ei toimi queries.js/exports.saveNewPerson -->
+                });
+            });
+        </script>
     </head>
     <body>
         <h1>Add new contact info</h1>
-        <form method="post" enctype="application/json" action="/persons"> <!-- käytetään kun lähetetään tietoa selaimesta serverille, json tyyppinä. action kertoo mihin kontekstiin serverillä => person. Kts bootstrap.com -->
-            
-            <!-- nimetty json-objektin muuttujat saman nimiseksi kuin mitä on tietokannassa. Voi tällöin tallentaa suoraan tietokantaan. Tiedon oikeellisuuden tarkistus täytyy tehdä itse -->
-            <input type="text" required placeholder="Your full name" name="name"/> <!-- tallentaa nimen name-nimiseen muuttujaan -->
-            <input type="text" required placeholder="Your full address" name="address"/>
-            <input type="number" required placeholder="Your age" name="age"/>
-            <input type="submit" value="Send"/>
+        <form>
+            <input type="text" required placeholder="Your full name" id="name"/>
+            <input type="text" required placeholder="Your full address" id="address"/>
+            <input type="number" required placeholder="Your age" id="age"/>
+            <input id="sendBtn" type="button" value="Send"/>
         </form>
     </body>
 </html>

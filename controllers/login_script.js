@@ -3,7 +3,6 @@
 $(document).ready(function(){ // odotetaan, että dokumentaatio object model (DOM) on valmis
     $("#login").click(loginHandler);
     $("#register").click(registerHandler);
-    $( "#datepicker" ).datepicker();// ei kuulu kurssiin
 });
 
 /**
@@ -90,8 +89,9 @@ function loginResponseHandler(data){
     
 };
 
+/*
 function renderPersonView(data){
     console.log(data);
     $(document).html(data);
 };
-
+*/

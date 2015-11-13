@@ -22,10 +22,22 @@ exports.getAllPersons = function(req,res){
 // This function saves new person information to person collection
 exports.saveNewPerson = function(req,res){
     var personTemp = new db.Person(req.body); // luo uuden person objektin. Bodyssa tallessa json-objekti
+    
     // save it to the database
     personTemp.save(function(err,ok){ // save tekee tiedon validoinnin, jos kaikki oikein kutsuu callback-funktiota function(err,ok)
-       //res.send("Database action done");
-        res.redirect('/'); // make a redirect to the root context...palaa aloitussivulle, joka oli root context
+        
+        // lisää toiseen collectioniin
+        db.Friends.update({username:req.body.user}, // haetaan kenelle päivitetään
+                          {$push:{'friends':personTemp._id}}, // pushilla lisätään ???
+                         function(err,model){
+            
+                            // Make a redirect to root context. Pitäisi palata pääsivulle
+                            //res.redirect(301,'/person.html'); // ei toimi
+            
+                            // korjaus res.redirect('/person.html');
+                            res.send("Added stuff to Friends"); // lähetetään merkkijono
+                        });
+        
     });
 }
 
@@ -35,14 +47,20 @@ exports.deletePerson = function(req,res){
     // what happens here is that req.params.id return string "id=535345785fsdfsd".
     // split() function splits the string form "=" and creates an array where [0] contains
     // "id" and [1] contains "535345785fsdfsd"
+    console.log(req.params);
     var id = req.params.id.split("=")[1];
-    console.log(id);
+    var userName = req.params.username.split("=")[1];
 
     db.Person.remove({_id:id},function(err){ // kts db.person.find. => _id on avain, id on arvo
         if(err){
             res.send(err.message);
         } else {
-            res.send("Delete ok")
+            // If succesfully removed remome also reference from User collection
+            db.Friends.update({username:userName}, // haetaan kenelle päivitetään
+                            {$pull:{'friends':id}}, // pullilla poistetaan
+                            function(err,model){
+                                res.send("Removed stuff from Friends"); // lähetetään merkkijono
+                            });
         }
     });
 
@@ -69,7 +87,7 @@ exports.updatePerson = function(req,res){
 // This function searches database by name or by begin letters of name
 exports.findPersonsByName = function(req,res){
     var name = req.params.nimi.split("=")[1];
-    console.log("name:" + name);
+    //console.log("name:" + name);
 
     db.Person.find({name: {'$regex':'^' + name,'$options':'i'}},function(err,data){
        if (err)  {
@@ -121,11 +139,11 @@ exports.loginFriend = function(req,res){
 exports.getFriendByUsername = function(req,res){
   
     var usern = req.params.username.split("=")[1];
-    db.Friends.find({username:usern}).populate('friends').exec(function(err,data){
-        console.log(err);
-        console.log(data);
+    db.Friends.find({username:usern}).populate('friends').exec(function(err,data){ // find() palauttaa taulukon
+        //console.log(err);
+        //console.log(data[0]);
         
         // palauttaa clientille taulukon
-        res.send(data.friends);
+        res.send(data[0].friends);
     });
 }

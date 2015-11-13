@@ -8,7 +8,7 @@ function connectionStatus(err,ok){
     if(err){
         console.log(err.message);
     } else{
-        console.log("We are connected!")
+        console.log("database.js/connectionStatus: We are connected!")
     }
 }
 

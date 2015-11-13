@@ -3,10 +3,6 @@
 "use strict"; // jslint antaa varoituksen kaikista koodin osista, jotka ei hyvin
 console.log("Here we go!!"); // menee selaiseen logiin. Crome=>lisää tyäkaluja/kehittäjän työkalut. Tulee consoleen debuggerissa
 
-// this variable is shown to every function
-//var g_person_data;
-
-
 // onload-tapahtuma tehdään jquery-kirjastolla
 // wait document ready event
 // $ => jquery elementti
@@ -41,6 +37,19 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
                             "</tr>";
 
                 $(html).appendTo("tbody") // lisätään html-dokumentin <tdody> elementtiin
+                
+                // 13.11.2015 Searchin jälkeen ei Modify-nappi toimi. Pitäis lisätä napille tapahtumankäsittelijä. Tänne korjaus
+                $("[type=button]").click(function(click_data){
+                    for(var i=0; i < data.length; i++) {
+                        // check if id from button matches one of person id
+                        if(click_data.currentTarget.id == data[i]._id) {
+                            buildModifyUI(data[i]);
+                            break;
+                        }
+                    }
+            
+                    console.log(click_data);
+                });
             }
             
         });
@@ -48,11 +57,6 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
         
 
     $("#head").css("background-color","lightblue").css("padding","20px").css("border-radius","8px");
-    
-    //$(".about").text("<b>New text</b>"); // tässä näkyy <b> ja </b>
-    $(".about").html("<b>New text</b>") // teksti lihavoituna
-    
-    $("[data-dummy]").html("<p>Hello World</p>"); // hae elementti data-dummy
     
     var settings = { // luodaan objekti ajax:ia varten
         method:"GET", // löytyy jquery API => AJAX. Tämä attribuutti on oletusarvoisesti GET
@@ -92,7 +96,9 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
             $(html).appendTo("tbody") // lisätään html-dokumentin <tdody> elementtiin
         }
         
-        // lisätty tähän, koska alla oleva toteutus ei toimi
+        // Get all elements from DOM where element has attribute 'type' with value 'button'. Then add event handler
+        // for click event for each of them
+        // kts jquery.com => API => events => mouse event => click()
         $("[type=button]").click(function(click_data){
             
             for(var i=0; i < data.length; i++) {
@@ -107,16 +113,6 @@ $(document).ready(function(){ // ready() ajetaan kun tärmötöään </body> ele
         });
         
     });
-    
-    /*
-    // Get all elements from DOM where element has attribute 'type' with value 'button'. Then add event handler
-    // for click event for each of them
-    // kts jquery.com => API => events => mouse event => click()
-    // ei toimi, koska yllä oleva koodi on asynkrooninen ja done()-funktioon ei ole tullut vastausta enne kuin alla oleva koodi ajetaan
-    $("[type=button]").click(function(data){
-        console.log(data);
-    });
-    */
     
 });
 
@@ -164,3 +160,5 @@ function buildModifyUI(person_data){ // korvaa muistissa olevan dokumentin täll
     });
 
 }
+
+
