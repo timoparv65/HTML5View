@@ -47,6 +47,7 @@ exports.deletePerson = function(req,res){
     // what happens here is that req.params.id return string "id=535345785fsdfsd".
     // split() function splits the string form "=" and creates an array where [0] contains
     // "id" and [1] contains "535345785fsdfsd"
+    console.log("queries.js/deletePerson")
     console.log(req.params);
     var id = req.params.id.split("=")[1];
     var userName = req.params.username.split("=")[1];
@@ -58,13 +59,15 @@ exports.deletePerson = function(req,res){
             // If succesfully removed remome also reference from User collection
             db.Friends.update({username:userName}, // haetaan kenelle päivitetään
                             {$pull:{'friends':id}}, // pullilla poistetaan
-                            function(err,model){
+                            function(err,data){
+                                console.log(err);
                                 res.send("Removed stuff from Friends"); // lähetetään merkkijono
                             });
         }
     });
 
 }
+
 
 // this method updates one person info
 // kts. Google: mongoose update document

@@ -135,7 +135,9 @@ function buildModifyUI(person_data){ // korvaa muistissa olevan dokumentin täll
         // tehdään HTTP-pyyntö front-endiltä back-endiin Ajax:ia käyttäen
         $.ajax({
             method:'DELETE',
-            url:'http://localhost:3000/persons/id=' + person_data._id // persons-konteksti. Liitetään URL-osoitteeseen tieto mitä halutaan tuhota. Atribuutti id (voi olla mikä tahansa)
+            // persons-konteksti. Liitetään URL-osoitteeseen tieto mitä halutaan tuhota.
+            // Atribuutti id (voi olla mikä tahansa) + username
+            url:'http://localhost:3000/persons/id=' + person_data._id + '/username=' + localStorage['username']
         }).done(function(data){location.reload(true)}); // location.reload(true) tekee sivulle refreshin
         
     });

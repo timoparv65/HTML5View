@@ -27,8 +27,7 @@ router.put('/',function(req,res){
     db.updatePerson(req,res);
 });
 
-router.delete('/:id',function(req,res){ // argumenttina tulee id
-    //console.log(req.params.id); // params objekti, jolla atribuutti id
+router.delete('/:id/:username',function(req,res){ // argumenttina tulee id ja username
     db.deletePerson(req,res);
 });
 
